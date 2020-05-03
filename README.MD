@@ -25,6 +25,7 @@ yum install openssl-devel
 yum install python2-devel 
 yum install python3-devel
 
+# latest sources and version may be found at https://ftp.postgresql.org/pub/latest/
 curl -O 'https://ftp.postgresql.org/pub/source/v11.2/postgresql-11.2.tar.gz' && tar -xzf postgresql-11.2.tar.gz
 curl -O 'http://initd.org/psycopg/tarballs/PSYCOPG-2-8/psycopg2-2.8.tar.gz' && tar -xzf psycopg2-2.8.tar.gz
 
