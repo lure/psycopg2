@@ -7,59 +7,14 @@ To use it simply download the package, pick python version that you want to use 
 
 
 ### To build manually
-Install docker, pull container, log into it
+Install docker
 
 ```
-docker pull amazonlinux
-docker run -it amazonlinux:latest /bin/bash
-
+docker build -t lure/psycopg28
+docker cp %container%:/tmp/psycopg2-2.8/psycopg2.tar.gz ./
+docker cp %container%:/tmp/psycopg2-2.8/psycopg3.tar.gz ./
 ```
-
-When inside
-
-```
-cd home
-yum groupinstall "Development Tools"
-yum install vim
-yum install openssl-devel
-yum install python2-devel 
-yum install python3-devel
-
-# latest sources and version may be found at https://ftp.postgresql.org/pub/latest/
-curl -O 'https://ftp.postgresql.org/pub/source/v11.2/postgresql-11.2.tar.gz' && tar -xzf postgresql-11.2.tar.gz
-curl -O 'http://initd.org/psycopg/tarballs/PSYCOPG-2-8/psycopg2-2.8.tar.gz' && tar -xzf psycopg2-2.8.tar.gz
-
-cd postgresql-11.2
-./configure  --without-readline --without-zlib --with-openssl && make && make install
-cd psycopg2-2.8 
-vim ./setup.cfg 
-```
-
-Now being editing `setup.cfg`, set following lines
-
-```
-pg_config = /home/postgresql-11.2/src/bin/pg_config/pg_config
-have_ssl = 1
-static_libpq = 1
-libraries = ssl crypto
-```
-
-Save & exit, continue with
-
-```
-configure 
-make 
-```
-
-This will build the library for default python which is usually 2. If you want a different one use `PYTHON_VERSION=3 make` 
-instead.  To get compiled from container, first archive the build and next retrieve it to your filesystem
-
-```
-tar -zcvf ./build/lib... %filename%
-docker cp %container%:/%filename %path%
-``` 
-
-It is up to you to figure out how to make lmbda layer or pack the lib with your code. 
+Lambda layer requires content of this files to be put into `python` folder inside the archive. 
 
 Usefull sources: 
 1. How to prepare for compilation on AMI2 https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/compile-software.html
