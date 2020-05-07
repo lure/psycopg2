@@ -15,8 +15,15 @@ Install docker and then
 # two params are provided: PG -- postgresql version and PY - major python version. Example: 
 PG=12.2 PY=3 ./build.sh 
 ```
+
 Find the package named `/tmp/psycopg${PY}.tar.gz` in current dir. The archive structure is all set to be used as a layer.
-You may log in into container using `docker run -v `pwd`:/opt --rm -ti lure/psycopg28 bash`  to compile something else while the image still exists. 
+You may log in into container using 
+
+```
+docker run -v `pwd`:/opt --rm -ti lure/psycopg28 bash
+```  
+
+to compile something else while the image still exists. 
 
 Don't forget to delete image if no longer needed, it's around 1gb in size.
 
