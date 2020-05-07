@@ -17,7 +17,7 @@ id=$(docker create lure/psycopg28)
 docker cp $id:/tmp/psycopg2-2.8/psycopg2.tar.gz ./
 docker cp $id:/tmp/psycopg2-2.8/psycopg3.tar.gz ./
 docker rm -v $id
-docker rmi lure/pcycopg
+docker rmi lure/psycopg28
 
 # OR
 # docker run -v $PWD:/opt/mount --rm -ti lure/psycopg28 bash -c "cp /tmp/psycopg2-2.8/*.tar.gz /opt/mount/"
