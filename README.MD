@@ -7,7 +7,7 @@ To use it simply download the package, pick python version that you want to use 
 
 
 ### To build manually
-Install docker
+Install docker and then
 
 ```
 docker build -t lure/psycopg28
