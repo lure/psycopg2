@@ -10,19 +10,15 @@ To use it simply download the package, pick python version that you want to use 
 Install docker and then
 
 ```bash
-#!/bin/bash
-set -e
-docker build -t lure/psycopg28
-id=$(docker create lure/psycopg28)
-docker cp $id:/tmp/psycopg2-2.8/psycopg2.tar.gz ./
-docker cp $id:/tmp/psycopg2-2.8/psycopg3.tar.gz ./
-docker rm -v $id
-docker rmi lure/psycopg28
-
-# OR
-# docker run -v $PWD:/opt/mount --rm -ti lure/psycopg28 bash -c "cp /tmp/psycopg2-2.8/*.tar.gz /opt/mount/"
+# default pg and python version
+./build.sh 
+# two params are provided: PG -- postgresql version and PY - major python version. Example: 
+PG=12.2 PY=3 ./build.sh 
 ```
-Lambda layer requires content of this files to be put into `python` folder inside the archive. 
+Find the package named `/tmp/psycopg${PY}.tar.gz` in current dir. The archive structure is all set to be used as a layer.
+You may log in into container using `docker run -v `pwd`:/opt --rm -ti lure/psycopg28 bash`  to compile something else while the image still exists. 
+
+Don't forget to delete image if no longer needed, it's around 1gb in size.
 
 Usefull sources: 
 1. How to prepare for compilation on AMI2 https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/compile-software.html
