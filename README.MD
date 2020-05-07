@@ -9,10 +9,18 @@ To use it simply download the package, pick python version that you want to use 
 ### To build manually
 Install docker and then
 
-```
+```bash
+#!/bin/bash
+set -e
 docker build -t lure/psycopg28
-docker cp %container%:/tmp/psycopg2-2.8/psycopg2.tar.gz ./
-docker cp %container%:/tmp/psycopg2-2.8/psycopg3.tar.gz ./
+id=$(docker create lure/psycopg28)
+docker cp $id:/tmp/psycopg2-2.8/psycopg2.tar.gz ./
+docker cp $id:/tmp/psycopg2-2.8/psycopg3.tar.gz ./
+docker rm -v $id
+docker rmi lure/pcycopg
+
+# OR
+# docker run -v $PWD:/opt/mount --rm -ti lure/psycopg28 bash -c "cp /tmp/psycopg2-2.8/*.tar.gz /opt/mount/"
 ```
 Lambda layer requires content of this files to be put into `python` folder inside the archive. 
 
